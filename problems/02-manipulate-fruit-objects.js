@@ -10,6 +10,10 @@ console.log(addKeyAndValueToAll(fruits, "inStock", true));
 
 function addKeyAndValueToAll(array, key, value) {
     // Your code here
+    array.map(obj => {
+        obj[key] = value;
+    });
+    return array;
 }
 
 /* 08. `addKeyAndValueToOne()` - Return object at the given index array, adding the given key and
@@ -21,6 +25,9 @@ console.log(addKeyAndValueToOne(fruits, "color", "red", 1));
 
 function addKeyAndValueToOne(array, key, value, index) {
     // Your code here
+    let obj = array[index];
+    obj[key] = value;
+    return obj;
 }
 
 /* 09. `updateKeyName()` - Change the old key name to the new key name in all
@@ -33,6 +40,12 @@ console.log(updateKeyName(fruits, "nutritions", "nutrition"));
 
 function updateKeyName(array, oldKey, newKey) {
     // Your code here
+    return array.map(obj => {
+        let oldValue = obj[oldKey];
+        delete obj[oldKey];
+        obj[newKey] = oldValue;
+        return obj;
+    });
 }
 
 /* 10. `updateIdValues()` - Change all of the "id" values to six-character
@@ -50,6 +63,19 @@ console.log(updateIdValues(fruits));
 
 function updateIdValues(array) {
     // Your code here
+    let ids = [];
+    array.map(obj => {
+        let {id} = obj;
+        //console.log(typeof id);
+        let idString = id.toString();
+        let idStringlength = idString.length;
+        for (let i = 1; i <= (6 - idStringlength); i++) {
+            idString = "0" + idString;
+        }
+        obj[id] = idString;
+        ids.push(idString);
+    });
+    return ids;
 }
 
 /* 11. `deleteKeysandValues()` - Delete the keyToDelete from the nutritions
@@ -61,6 +87,13 @@ console.log(deleteKeysAndValues(fruits, "sugar"));
 
 function deleteKeysAndValues(array, keyToDelete) {
     // Your code here
+    for (obj of array) {
+        if (obj["nutritions"] !== undefined) {
+            let {nutritions} = obj;
+            delete nutritions[keyToDelete];
+        }
+    }
+    return array;
 }
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
